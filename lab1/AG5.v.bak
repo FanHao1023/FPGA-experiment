@@ -1,0 +1,13 @@
+module AG5(clk, addr);
+input clk;
+output reg [4:0] addr;
+wire [4:0] naddr;
+
+assign naddr = addr + 1'd1;
+
+always@(posedge clk)
+begin
+	addr <= naddr;
+end
+
+endmodule
