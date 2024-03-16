@@ -1,0 +1,11 @@
+module counter (clk,reset,out);
+input clk,reset;
+output reg [5:0] out;
+
+always @ (posedge clk or posedge reset)
+	if(reset == 1'b1)
+		out <= 6'b0;
+	else 
+		out <= out + 6'd1;
+		
+endmodule

@@ -1,0 +1,10 @@
+module output_reset (in ,reset, END, change,reset_out);
+input [4:0] in;
+input reset, END, change;
+output reset_out;
+wire all_zero;
+
+assign all_zero = ~(|in)
+assign reset_out = reset | END | change | all_zero;
+
+endmodule

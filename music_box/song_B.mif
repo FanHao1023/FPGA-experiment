@@ -1,0 +1,98 @@
+-- Copyright (C) 1991-2005 Altera Corporation
+-- Your use of Altera Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic       
+-- functions, and any output files any of the foregoing           
+-- (including device programming or simulation files), and any    
+-- associated documentation or information are expressly subject  
+-- to the terms and conditions of the Altera Program License      
+-- Subscription Agreement, Altera MegaCore Function License       
+-- Agreement, or other applicable license agreement, including,   
+-- without limitation, that your use is for the sole purpose of   
+-- programming logic devices manufactured by Altera and sold by   
+-- Altera or its authorized distributors.  Please refer to the    
+-- applicable agreement for further details.
+
+-- Quartus II generated Memory Initialization File (.mif)
+
+WIDTH=8;
+DEPTH=256;
+
+ADDRESS_RADIX=UNS;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+1  :  C0 ; 
+2  :  46 ; 
+3  :  46 ; 
+4  :  68 ; 
+5  :  66 ; 
+6  :  6B ; 
+7  :  8A ; 
+8  :  60 ; 
+9  :  46 ; 
+10  :  46 ; 
+11  :  68 ; 
+12  :  66 ; 
+13  :  6D ; 
+14  :  8B ; 
+15  :  60 ; 
+16  :  46 ; 
+17  :  46 ; 
+18  :  72 ; 
+19  :  6F ; 
+20  :  6B ; 
+21  :  6A ; 
+22  :  68 ; 
+24  :  52 ; 
+25  :  52 ; 
+26  :  71 ; 
+27  :  6D ; 
+28  :  6F ; 
+29  :  8D ; 
+	[30..127]  :	FF;
+128  :  C0 ; 
+129  :  60 ; 
+130  :  48 ; 
+131  :  4F ; 
+132  :  54 ; 
+133  :  56 ; 
+134  :  77 ; 
+135  :  43 ; 
+136  :  4A ; 
+137  :  4F ; 
+138  :  51 ; 
+139  :  60 ; 
+140  :  72 ; 
+141  :  43 ; 
+142  :  4A ; 
+143  :  4F ; 
+144  :  51 ; 
+145  :  72 ; 
+146  :  48 ; 
+147  :  4F ; 
+148  :  54 ; 
+149  :  56 ; 
+150  :  60 ; 
+151  :  77 ; 
+152  :  48 ; 
+153  :  4F ; 
+154  :  54 ; 
+155  :  56 ; 
+156  :  77 ; 
+157  :  4A ; 
+158  :  51 ; 
+159  :  56 ; 
+160  :  57 ; 
+161  :  79 ; 
+162  :  43 ; 
+163  :  4A ; 
+164  :  4F ; 
+165  :  51 ; 
+166  :  72 ; 
+167  :  48 ; 
+168  :  4F ; 
+169  :  54 ; 
+170  :  56 ; 
+171  :  77 ; 
+	[172..255]  :	FF;
+END;

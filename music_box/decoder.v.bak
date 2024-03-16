@@ -1,0 +1,18 @@
+module decoder (s, out);
+input [2:0] s;
+output [5:0] out;
+
+always @ (*)
+	case(s)
+	3'd0 : out <= 6'd1;
+	3'd1 : out <= 6'd2;
+	3'd2 : out <= 6'd4;
+	3'd3 : out <= 6'd8;
+	3'd4 : out <= 6'd16;
+	3'd5 : out <= 6'd24;
+	3'd6 : out <= 6'd32;
+	default : out <= 6'd0;
+	endcase
+	
+endmodule
+	

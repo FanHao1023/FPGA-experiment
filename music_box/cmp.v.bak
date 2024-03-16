@@ -1,0 +1,8 @@
+module cmp (a,b,out);
+input [5:0] a,b;
+output out;
+
+always @ (*)
+	out = (a == b) ? 1'b1 : 1'b0;
+	
+endmodule
