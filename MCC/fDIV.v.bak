@@ -1,0 +1,33 @@
+module fDIV( fin, Divn_in, fout);
+input fin;
+input [1:0] Divn_in;
+wire [31:0] Divn;
+output fout;
+reg fout0;
+wire _fout;
+wire[31:0] _Divn, ncount;
+reg[31:0] count;
+
+always@(*)
+begin
+	case(Divn_in)
+		2'b00 : Divn = 32'd512000;
+		2'b01 : Divn = 32'd1024000;
+		2'b10 : Divn = 32'd2048000;
+		2'b11 : Divn = 32'd4096000;
+	endcase
+end
+
+assign _Divn={1'b0,Divn[31:1]};
+
+always@(posedge fin)
+begin
+count <= ncount;
+fout0 <= _fout;
+end
+
+assign ncount=(count>=Divn)?32'd1:count+1;
+assign _fout=(count>_Divn)?1'b1:1'b0;
+assign fout=(Divn<8'd2)?fin:fout0;
+
+endmodule
