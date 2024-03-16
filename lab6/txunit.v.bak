@@ -1,0 +1,96 @@
+module txunit(reset, clk, start, TData, tx);
+input reset, clk, start;
+input [7:0] TData;
+output reg tx;
+
+parameter WAITTING = 1'b1;
+parameter START_BIT = 1'b0;
+parameter STOP_BIT = 1'b1;
+
+reg [2:0] cs, ns;
+wire tdc, txd, _tx;
+reg [1:0] OS;
+reg count_rst, shift_en;
+
+always@(posedge clk or negedge reset)
+begin
+	if(!reset)
+		cs <= 3'd0;
+	else
+		cs <= ns;
+end
+
+always@(*)
+begin
+	case(cs)
+		3'd0:   ns <= 3'd1;						
+		3'd1:   ns <= (start) ? 3'd2:3'd1;	
+		3'd2:   ns <= 3'd3;						
+		3'd3:   ns <= (tdc) ? 3'd4:3'd3;	
+		3'd4:   ns <= 3'd1;						
+		default:ns <= 3'd0;
+	endcase
+end
+
+always@(*)
+begin
+	case(cs)
+	3'd0:begin
+		OS <= 2'b00;
+		count_rst <= 1'd1;
+		shift_en <= 1'd0;
+		end
+		
+	3'd1:begin
+		OS <= 2'b00;
+		count_rst <= 1'd1;
+		shift_en <= 1'd0;
+		end
+		
+	3'd2:begin
+		OS <= 2'b01;
+		count_rst <= 1'd1;
+		shift_en <= 1'd0;
+		end
+		
+	3'd3:begin
+		OS <= 2'b10;
+		count_rst <= 1'd0;
+		shift_en <= 1'd1;
+		end
+		
+	3'd4:begin
+		OS <= 2'b11;
+		count_rst <= 1'd1;
+		shift_en <= 1'd0;
+		end
+		
+	default:begin
+		OS <= 2'b00;
+		count_rst <= 1'd1;
+		shift_en <= 1'd0;
+		end
+	endcase
+end
+
+counter U0(
+.clk(clk),
+.rst(count_rst),
+.end_single(tdc)
+);
+
+txshift U1(
+.load(start),
+.clk(clk),
+.din(TData),
+.en(shift_en),
+.txd(txd)
+);
+
+assign _tx = (OS[1])?((OS[0])? STOP_BIT : txd):
+				 ((OS[0])?START_BIT : WAITTING);
+				 
+always@(posedge clk)
+	tx <= _tx;
+	
+endmodule

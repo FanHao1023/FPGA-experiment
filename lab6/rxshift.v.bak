@@ -1,0 +1,27 @@
+module rxshift(
+rst,
+rxd,
+clk,
+en,
+rdc,
+Dout
+);
+
+input rst, rxd, clk, en, rdc;
+output [7:0]Dout;
+
+reg [7:0]Dout;
+wire [7:0]nData;
+
+always@(posedge clk or posedge rst)
+begin
+	if(rsk)
+		Data <= Data;
+	else
+		Data <= nData;
+end
+
+assign nData = (en)? {rxd,Data[7:1]}:Data;
+assign Dout = (rdc)? Data : Dout;
+
+endmodule

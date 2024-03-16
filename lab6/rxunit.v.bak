@@ -1,0 +1,86 @@
+module rxunit(reset, clk, rx, RData, ready);
+input reset, clk, rx;
+output [7:0]RData;
+output reg ready;
+
+reg [2:0]cs, ns;
+wire rdc;
+reg rst, shift_en;
+
+always@(posedge clk or negedge reset)
+begin
+	if(!reset)
+		cs <= 1'd0;
+	else
+		cs <= ns;
+end
+
+always@(*)begin
+	case(cs)
+	3'd0 : ns = 1'd1;
+	3'd1 : ns = (rx)? 3'd1 : 3'd2;
+	3'd2 : ns = (rdc)? 3'd3 : 3'd2;
+	3'd3 : ns = (rx)? 3'd4 : 3'd1;
+	3'd4 : ns = (rx)? 3'd1 : 3'd2;
+	default: ns = 3'd0;
+	endcase
+end
+
+always@(*)begin
+	case(cs)
+		3'd0 :begin
+			rst	  <=1'd1;
+			shift_en<=1'd0;
+			ready	  <=1'd0;
+		end
+		
+		3'd1 :begin
+			rst	  <=1'd1;
+			shift_en<=1'd0;
+			ready	  <=1'd0;
+		end
+		
+		3'd2 :begin
+			rst	  <=1'd0;
+			shift_en<=1'd1;
+			ready	  <=1'd0;
+		end
+		
+		3'd3 :begin
+			rst	  <=1'd1;
+			shift_en<=1'd0;
+			ready	  <=1'd0;
+		end
+		
+		3'd4 :begin
+			rst	  <=1'd1;
+			shift_en<=1'd0;
+			ready	  <=1'd1;
+		end
+		
+		default:begin
+			rst	  <=1'd1;
+			shift_en<=1'd0;
+			ready	  <=1'd0;
+		end
+	endcase
+end
+
+counter RX_counter(
+.clk(clk),
+.rst(rst),
+.end_single(rdc)
+);
+
+rxshift rxshift(
+.rst(rst),
+.rxd(rx),
+.clk(clk),
+.en(shift_en),
+.rdc(ready),
+.Dout(RData)
+);
+
+endmodule
+
+

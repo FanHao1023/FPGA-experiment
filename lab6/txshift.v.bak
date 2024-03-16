@@ -1,0 +1,20 @@
+module txshift(load, clk, din, en, txd);
+input load, en, clk;
+input [7:0]din;
+output txd;
+
+reg [7:0] data;
+wire [7:0] ndata;
+
+always@(posedge clk)
+begin
+	if(load)
+		data <= din;
+	else
+		data <= ndata;
+end
+
+assign ndata = (en)? {1'b0,data[7:1]} : data;
+assign txd = data[0];
+
+endmodule		
