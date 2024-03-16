@@ -1,0 +1,16 @@
+module AG (clk, reset, addr);
+input clk,reset;
+output reg [7:0] addr;
+
+
+always @ (posedge clk or negedge reset)
+begin
+ if (reset == 1'd0)               
+	 addr <= 0;
+  else                      
+    addr <= addr + 1;           
+ end       
+	                               
+endmodule                         
+ 
+

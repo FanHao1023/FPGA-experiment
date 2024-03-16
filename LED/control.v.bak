@@ -1,0 +1,20 @@
+module control (clk, s, start, str);
+input clk, s;
+output reg start, str;
+reg [3:0] count;
+wire _str;
+wire _start;
+
+assign _str = &count;
+assign _start = ~(|count);
+
+always @ (posedge clk)
+	count <= (s == 1'd1) ? 4'd0 : count + 1'b1;
+		
+always @ (negedge clk)
+	begin
+	start <= _start;
+	str <= _str;
+	end
+		
+endmodule
